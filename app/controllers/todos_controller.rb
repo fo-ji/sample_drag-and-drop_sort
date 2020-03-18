@@ -7,6 +7,12 @@ class TodosController < ApplicationController
     @todos = Todo.rank(:row_order)
   end
 
+  def sort
+    todo = Todo.find(params[:todo_id])
+    todo.update(fruit_params)
+    render body: nil
+  end
+
   # GET /todos/1
   # GET /todos/1.json
   def show
@@ -69,6 +75,6 @@ class TodosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def todo_params
-      params.require(:todo).permit(:content, :priority, :limit)
+      params.require(:todo).permit(:content, :priority, :limit, :row_order_position)
     end
 end
